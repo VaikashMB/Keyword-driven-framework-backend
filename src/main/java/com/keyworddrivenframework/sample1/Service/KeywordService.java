@@ -162,4 +162,8 @@ public class KeywordService {
         executionResults.clear();
         testExecutor.resetExecutionFlag();
     }
+
+    public void setHeadlessMode(boolean headless) {
+        testExecutor.setHeadlessMode(headless);
+    }
 }

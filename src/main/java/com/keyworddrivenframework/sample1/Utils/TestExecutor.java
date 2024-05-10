@@ -28,6 +28,7 @@ public class TestExecutor {
     private boolean executionFailed = false;
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private static final SecureRandom RANDOM = new SecureRandom();
+    private boolean headless = false;
 
     //method for checking whether execution is failed or not
     private boolean isExecutionFailed() {
@@ -66,18 +67,23 @@ public class TestExecutor {
             switch (value.toLowerCase()) {
                 case "chrome":
                     System.setProperty("webdriver.chrome.driver", "/home/vaikashmb/Downloads/chromedriver-linux64/chromedriver");
-//                    ChromeOptions options = new ChromeOptions();
-//                    options.addArguments("--headless");
-                    driver = new ChromeDriver();
+                    ChromeOptions options = new ChromeOptions();
+                    if (headless) {
+                        options.addArguments("--headless");
+                        driver = new ChromeDriver(options);
+                    }else {
+                        driver = new ChromeDriver();
+                    }
+
                     break;
                 case "edge":
                     System.setProperty("webdriver.edge.driver", "/home/vaikashmb/Downloads/edgedriver_linux64/msedgedriver");
                     driver = new EdgeDriver();
                     break;
-                case "firefox":
-                    System.setProperty("webdriver.gecko.driver", "/home/vaikashmb/Downloads/geckodriver-linux64/geckodriver");
-                    driver = new FirefoxDriver();
-                    break;
+//                case "firefox":
+//                    System.setProperty("webdriver.gecko.driver", "/home/vaikashmb/Downloads/geckodriver-linux64/geckodriver");
+//                    driver = new FirefoxDriver();
+//                    break;
                 default:
                     throw new IllegalArgumentException("Invalid browser type specified. Supported types: Chrome, Microsoft-Edge");
             }
@@ -740,6 +746,10 @@ public class TestExecutor {
     //method to reset the execution flag
     public void resetExecutionFlag() {
         executionFailed = false;
+    }
+
+    public void setHeadlessMode(boolean headless) {
+        this.headless = headless;
     }
 }
 

@@ -45,12 +45,19 @@ public class KeywordController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PostMapping("/updateHeadlessMode")
+    public ResponseEntity<String> updateHeadlessMode(@RequestBody Map<String,Boolean> headless) {
+        boolean headlessMode = headless.get("headless");
+        keywordService.setHeadlessMode(headlessMode);
+        return ResponseEntity.ok("Headless mode updated successfully to " + headless);
+    }
+
     //to execute the provided keywords
     @PostMapping("/executeAll/{testId}")
     public ResponseEntity<List<TestResults>> executeAndRetrieveResults(@RequestBody List<Map<String, String>> actionKeyword, @PathVariable Test testId) {
         keywordService.resetExecutionResults();
         actionKeyword.sort(Comparator.comparingDouble(action -> Double.parseDouble(action.get("orderOfExecution"))));
-
         String startTime = getCurrentTime();
         for (Map<String, String> actionKeywords : actionKeyword) {
             String flag = actionKeywords.get("flag");
