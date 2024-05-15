@@ -59,74 +59,71 @@ public class KeywordService {
         testResult.setRunId(runId);
 
         switch (keyword.toLowerCase()) {
-            case "openbrowser":
-                testResult.setResult(testExecutor.openBrowser(value,screenshotValue,testResult));
-                break;
             case "gotourl":
-                testResult.setResult(testExecutor.goToURL(value,screenshotValue,testResult));
+                testResult.setResult(testExecutor.goToURL(value, screenshotValue, testResult));
                 break;
             case "typetext":
-                testResult.setResult(testExecutor.typeText(locatorType, locatorValue, value, screenshotValue,testResult));
+                testResult.setResult(testExecutor.typeText(locatorType, locatorValue, value, screenshotValue, testResult));
                 break;
             case "typemaskedtext":
-                testResult.setResult(testExecutor.typeMaskedText(locatorType, locatorValue, value, screenshotValue,testResult));
+                testResult.setResult(testExecutor.typeMaskedText(locatorType, locatorValue, value, screenshotValue, testResult));
                 break;
             case "cleartext":
-                testResult.setResult(testExecutor.clearText(locatorType, locatorValue, screenshotValue,testResult));
+                testResult.setResult(testExecutor.clearText(locatorType, locatorValue, screenshotValue, testResult));
                 break;
             case "click":
-                testResult.setResult(testExecutor.click(locatorType, locatorValue,value, screenshotValue,testResult));
+                testResult.setResult(testExecutor.click(locatorType, locatorValue, value, screenshotValue, testResult));
                 break;
             case "doubleclick":
-                testResult.setResult(testExecutor.doubleClick(locatorType, locatorValue, screenshotValue,testResult));
+                testResult.setResult(testExecutor.doubleClick(locatorType, locatorValue, screenshotValue, testResult));
                 break;
             case "getvalue":
-                testResult.setResult(testExecutor.getValue(locatorType,locatorValue,screenshotValue,testResult));
+                testResult.setResult(testExecutor.getValue(locatorType, locatorValue, screenshotValue, testResult));
                 break;
             case "typevalue":
-                testResult.setResult(testExecutor.typeValue(locatorType,locatorValue,screenshotValue,testResult));
+                testResult.setResult(testExecutor.typeValue(locatorType, locatorValue, screenshotValue, testResult));
                 break;
             case "scrolltobottom":
-                testResult.setResult(testExecutor.scrollToBottom(screenshotValue,testResult));
+                testResult.setResult(testExecutor.scrollToBottom(screenshotValue, testResult));
                 break;
             case "scrolltotop":
-                testResult.setResult(testExecutor.scrollToTop(screenshotValue,testResult));
+                testResult.setResult(testExecutor.scrollToTop(screenshotValue, testResult));
                 break;
             case "scrolltoelement":
-                testResult.setResult(testExecutor.scrollToElement(locatorType,locatorValue,screenshotValue,testResult));
+                testResult.setResult(testExecutor.scrollToElement(locatorType, locatorValue, screenshotValue, testResult));
                 break;
             case "generaterandomnumber":
-                testResult.setResult(testExecutor.generateRandomNumber(locatorType,locatorValue,value));
+                testResult.setResult(testExecutor.generateRandomNumber(locatorType, locatorValue, value));
                 break;
             case "generaterandomtext":
-                testResult.setResult(testExecutor.generateRandomText(locatorType,locatorValue,value));
+                testResult.setResult(testExecutor.generateRandomText(locatorType, locatorValue, value));
                 break;
             case "waitfor":
                 testResult.setResult(testExecutor.waitFor(value));
                 break;
             case "waitforelement":
-                testResult.setResult(testExecutor.waitForElement(locatorType,locatorValue));
+                testResult.setResult(testExecutor.waitForElement(locatorType, locatorValue));
                 break;
             case "verifytext":
-                testResult.setResult(testExecutor.verifyText(locatorType,locatorValue,value,screenshotValue,testResult));
+                testResult.setResult(testExecutor.verifyText(locatorType, locatorValue, value, screenshotValue, testResult));
                 break;
             case "verifyelement":
-                testResult.setResult(testExecutor.verifyElement(locatorType, locatorValue, screenshotValue,testResult));
+                testResult.setResult(testExecutor.verifyElement(locatorType, locatorValue, screenshotValue, testResult));
                 break;
             case "verifyurl":
-                testResult.setResult(testExecutor.verifyURL(value,screenshotValue,testResult));
+                testResult.setResult(testExecutor.verifyURL(value, screenshotValue, testResult));
                 break;
             case "verifypagetitle":
-                testResult.setResult(testExecutor.verifyPageTitle(value,screenshotValue,testResult));
+                testResult.setResult(testExecutor.verifyPageTitle(value, screenshotValue, testResult));
                 break;
             case "selectfromdropdown":
-                testResult.setResult(testExecutor.selectFromDropdown(locatorType, locatorValue, value, screenshotValue,testResult));
+                testResult.setResult(testExecutor.selectFromDropdown(locatorType, locatorValue, value, screenshotValue, testResult));
                 break;
             case "mousehover":
                 testResult.setResult(testExecutor.mouseHover(locatorType, locatorValue, screenshotValue, testResult));
                 break;
             case "refreshpage":
-                testResult.setResult(testExecutor.refreshPage(screenshotValue,testResult));
+                testResult.setResult(testExecutor.refreshPage(screenshotValue, testResult));
                 break;
             case "enter":
                 testResult.setResult(testExecutor.enter(locatorType, locatorValue));
@@ -135,27 +132,46 @@ public class KeywordService {
                 testResult.setResult(testExecutor.downKeyAndEnter());
                 break;
             case "acceptalert":
-                testResult.setResult(testExecutor.acceptAlert(screenshotValue,testResult));
+                testResult.setResult(testExecutor.acceptAlert(screenshotValue, testResult));
                 break;
             case "dismissalert":
-                testResult.setResult(testExecutor.dismissAlert(screenshotValue,testResult));
+                testResult.setResult(testExecutor.dismissAlert(screenshotValue, testResult));
                 break;
             case "closebrowser":
                 testResult.setResult(testExecutor.closeBrowser());
                 break;
             case "fileupload":
-                testResult.setResult(testExecutor.fileUpload(locatorType,locatorValue,value));
+                testResult.setResult(testExecutor.fileUpload(locatorType, locatorValue, value));
                 break;
             case "draganddrop":
-                testResult.setResult(testExecutor.dragAndDrop(locatorType,locatorValue));
+                testResult.setResult(testExecutor.dragAndDrop(locatorType, locatorValue));
                 break;
             case "rightclick":
-                testResult.setResult(testExecutor.rightClick(locatorType,locatorValue));
+                testResult.setResult(testExecutor.rightClick(locatorType, locatorValue));
                 break;
             default:
                 throw new IllegalArgumentException("Invalid keyword: " + keyword);
         }
         executionResults.add(testResult);
+    }
+
+    public List<TestResults> executeAllKeywords(List<Map<String, String>> keywordActions, List<String> browsers, Test testId) {
+        resetExecutionResults();
+        keywordActions.sort(Comparator.comparingDouble(action -> Double.parseDouble(action.get("orderOfExecution"))));
+
+        if (browsers != null && !browsers.isEmpty()) {
+            for (String browser : browsers) {
+                testExecutor.openBrowser(browser);
+                String startTime = TestExecutor.getCurrentTime();
+                for (Map<String, String> actionKeywords : keywordActions) {
+                    String flag = actionKeywords.get("flag");
+                    if (flag != null && flag.equalsIgnoreCase("Y")) {
+                        executeKeyword(actionKeywords, testId, startTime);
+                    }
+                }
+            }
+        }
+        return executionResults;
     }
 
     public void resetExecutionResults() {

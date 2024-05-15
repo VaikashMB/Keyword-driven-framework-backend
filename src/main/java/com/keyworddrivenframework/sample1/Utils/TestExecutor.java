@@ -5,11 +5,12 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -21,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
+@Component
 public class TestExecutor {
 
     private WebDriver driver;
@@ -61,34 +63,34 @@ public class TestExecutor {
         executionFailed = true;
     }
 
-    //keyword for opening the browser like chrome, firefox etc
-    public String openBrowser(String value, Boolean screenshotValue, TestResults testResults) {
+    //case of openbrowser through checkboxes
+    public String openBrowser(String value) {
         try {
             switch (value.toLowerCase()) {
                 case "chrome":
                     System.setProperty("webdriver.chrome.driver", "/home/vaikashmb/Downloads/chromedriver-linux64/chromedriver");
-                    ChromeOptions options = new ChromeOptions();
+                    ChromeOptions chromeoptions = new ChromeOptions();
                     if (headless) {
-                        options.addArguments("--headless");
-                        driver = new ChromeDriver(options);
-                    }else {
+                        chromeoptions.addArguments("--headless");
+                        driver = new ChromeDriver(chromeoptions);
+                    } else {
                         driver = new ChromeDriver();
                     }
-
                     break;
                 case "edge":
                     System.setProperty("webdriver.edge.driver", "/home/vaikashmb/Downloads/edgedriver_linux64/msedgedriver");
-                    driver = new EdgeDriver();
+                    EdgeOptions edgeoptions = new EdgeOptions();
+                    if (headless) {
+                        edgeoptions.addArguments("--headless");
+                        driver = new EdgeDriver(edgeoptions);
+                    } else {
+                        driver = new EdgeDriver();
+                    }
                     break;
-//                case "firefox":
-//                    System.setProperty("webdriver.gecko.driver", "/home/vaikashmb/Downloads/geckodriver-linux64/geckodriver");
-//                    driver = new FirefoxDriver();
-//                    break;
                 default:
                     throw new IllegalArgumentException("Invalid browser type specified. Supported types: Chrome, Microsoft-Edge");
             }
             driver.manage().window().maximize();
-            captureScreenshotIfRequired(screenshotValue, testResults);
             System.out.println("Opening the browser: " + value);
             return "PASS";
         } catch (Exception e) {
@@ -113,8 +115,8 @@ public class TestExecutor {
     }
 
     //keyword for uploading a file
-    public String fileUpload(String locatorType,String locatorValue,String value){
-        try{
+    public String fileUpload(String locatorType, String locatorValue, String value) {
+        try {
             if (isExecutionFailed()) return "ABORTED";
             if (isDriverNull()) return "FAIL";
             By locator = createLocator(locatorType, locatorValue);
@@ -122,7 +124,7 @@ public class TestExecutor {
             element.sendKeys(value);
             System.out.println("File Uploaded Successfully");
             return "PASS";
-        } catch (Exception e){
+        } catch (Exception e) {
             handleException(e);
             return "FAIL";
         }
@@ -543,9 +545,10 @@ public class TestExecutor {
             return "FAIL";
         }
     }
+
     //keyword for mouse action - Right Click
-    public String rightClick(String locatorType,String locatorValue){
-        try{
+    public String rightClick(String locatorType, String locatorValue) {
+        try {
             if (isExecutionFailed()) return "ABORTED";
             if (isDriverNull()) return "FAIL";
             By locator = createLocator(locatorType, locatorValue);
@@ -554,7 +557,7 @@ public class TestExecutor {
             actions.contextClick(element).perform();
             System.out.println("Element Right-Clicked");
             return "PASS";
-        } catch (Exception e){
+        } catch (Exception e) {
             handleException(e);
             return "FAIL";
         }
@@ -651,8 +654,8 @@ public class TestExecutor {
     }
 
     //keyword for dragging and dropping an element
-    public String dragAndDrop(String locatorType,String locatorValue){
-        try{
+    public String dragAndDrop(String locatorType, String locatorValue) {
+        try {
             if (isExecutionFailed()) return "ABORTED";
             if (isDriverNull()) return "FAIL";
 
@@ -664,17 +667,17 @@ public class TestExecutor {
             String locatorValue1 = locatorValues[0].trim();
             String locatorValue2 = locatorValues[1].trim();
 
-            By locator1 = createLocator(locatorType1,locatorValue1);
-            By locator2 = createLocator(locatorType2,locatorValue2);
+            By locator1 = createLocator(locatorType1, locatorValue1);
+            By locator2 = createLocator(locatorType2, locatorValue2);
 
             WebElement sourceElement = driver.findElement(locator1);
             WebElement targetElement = driver.findElement(locator2);
 
             Actions actions = new Actions(driver);
-            actions.dragAndDrop(sourceElement,targetElement).perform();
+            actions.dragAndDrop(sourceElement, targetElement).perform();
             System.out.println("Element Dragged and Dropped");
             return "PASS";
-        } catch (Exception e){
+        } catch (Exception e) {
             handleException(e);
             return "FAIL";
         }
@@ -751,6 +754,43 @@ public class TestExecutor {
     public void setHeadlessMode(boolean headless) {
         this.headless = headless;
     }
+
+    //keyword for opening the browser like chrome, microsoft-edge etc
+//    public String openBrowser(String value,Boolean screenshotValue,TestResults testResults) {
+//        try {
+//            switch (value.toLowerCase()) {
+//                case "chrome":
+//                    System.setProperty("webdriver.chrome.driver", "/home/vaikashmb/Downloads/chromedriver-linux64/chromedriver");
+//                    ChromeOptions chromeoptions = new ChromeOptions();
+//                    if (headless) {
+//                        chromeoptions.addArguments("--headless");
+//                        driver = new ChromeDriver(chromeoptions);
+//                    } else {
+//                        driver = new ChromeDriver();
+//                    }
+//                    break;
+//                case "edge":
+//                    System.setProperty("webdriver.edge.driver", "/home/vaikashmb/Downloads/edgedriver_linux64/msedgedriver");
+//                    EdgeOptions edgeoptions = new EdgeOptions();
+//                    if (headless) {
+//                        edgeoptions.addArguments("--headless");
+//                        driver = new EdgeDriver(edgeoptions);
+//                    } else {
+//                        driver = new EdgeDriver();
+//                    }
+//                    break;
+//                default:
+//                    throw new IllegalArgumentException("Invalid browser type specified. Supported types: Chrome, Microsoft-Edge");
+//            }
+//            driver.manage().window().maximize();
+//            captureScreenshotIfRequired(screenshotValue, testResults);
+//            System.out.println("Opening the browser: " + value);
+//            return "PASS";
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return "FAIL";
+//        }
+//    }
 }
 
 
